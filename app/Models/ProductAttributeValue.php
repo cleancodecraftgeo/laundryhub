@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\Traits\HasActive;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,13 +12,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ProductAttributeValue extends Model
 {
      use HasFactory;
-     use HasUlids;
-     
+     use HasUlids, HasActive;
+
     protected $fillable = [
-'product_id',
-'attribute_id',
-'value',
-'unit'
+        'product_id',
+        'attribute_id',
+        'value',
+        'unit'
     ];
 
     public function product(){

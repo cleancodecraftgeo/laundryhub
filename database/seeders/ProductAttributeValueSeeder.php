@@ -12,8 +12,8 @@ class ProductAttributeValueSeeder extends Seeder
 {
     public function run(): void
     {
-        $product = Product::where('name_ge', 'Köynək yuma')->firstOrFail();
-        $weightAttr = Attribute::where('key', 'weight')->firstOrFail();
+        $product = Product::first();
+        $weightAttr = Attribute::first();
 
         ProductAttributeValue::create([
             'id' => (string) Str::ulid(),

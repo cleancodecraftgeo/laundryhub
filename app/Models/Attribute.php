@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AttributeStatusEnum;
-use App\Models\Concerns\HasActive;
+use App\Models\Traits\HasActive;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;

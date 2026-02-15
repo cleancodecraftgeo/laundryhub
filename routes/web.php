@@ -2,6 +2,7 @@
 
 use App\Enums\AttributeStatusEnum;
 use App\Enums\UnitStatusEnum;
+use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Attribute as ModelAttribute; // attribute adini sonra deyishersen cunki php icinde ele bir klass var
 use App\Models\Unit;
@@ -27,4 +28,7 @@ Route::get('unit',function(){
             }])->get();
 });
 
-// :D bilmirem anladin anl;amadn sabah danishariq uje gozum yumulur
+Route::get('/products',[ProductController::class,'index']);
+Route::get('/products/{id}',[ProductController::class,'show']);
+Route::post('/products',[ProductController::class,'store']);
+

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ProductStatus;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -16,19 +17,25 @@ class ProductSeeder extends Seeder
         $products = [
             [
                 'category_id' => $category->id,
-                'name_en' => 'LG Washing Machine',
-                'name_ge' => 'LG სარეცხი მანქანა',
-                'description_en' => 'Energy efficient washing machine',
-                'description_ge' => 'ენერგოეფექტური სარეცხი მანქანა',
+                'status'=>ProductStatus::ACTIVE->value,
+
                 'image' => 'washing-machines/lg.png',
                 'price' => 1200
             ],
         ];
 
         foreach ($products as $prod) {
-            Product::create(array_merge($prod, [
+           $product =  Product::create(array_merge($prod, [
                 'id' => (string) Str::ulid()
             ]));
+
+            $product->translations()->createMany([
+                ['title' => 'Lorem Ipsum En'  ,
+                'locale'=>'en'],
+                ['title' => 'Lorem Ipsum Ka'  ,
+                'locale'=>'ka']
+
+                ]);
         }
 
 
