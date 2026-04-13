@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
 use App\Enums\AttributeStatusEnum;
 use App\Models\Product;
@@ -40,9 +40,11 @@ return DB::transaction(function () use ($data) {
 
 }
 
-public function getAllProducts(int $perPage=5,int $page=1){
-    return Product::query()->active(AttributeStatusEnum::ACTIVE->value)
+public function getAllProducts(int $perPage=5,int $page=1,$desc=1){
+    return Product::query()
+    ->status(AttributeStatusEnum::ACTIVE->value)
     ->with('translations')
+    ->orderByDesc('created_at')
     ->paginate(
         perPage:$perPage,
         page:$page

@@ -4,6 +4,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\Unit;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductTranslate;
 use App\Models\ProductTranslation;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -45,6 +46,13 @@ class ProductFactory extends Factory
                     'description' => $this->faker->paragraph(),
                 ]);
             }
-        });
+                ProductImage::factory()->count(5)
+                ->sequence(
+                    ['is_thumb' => true],
+                    ['is_thumb' => false],
+                    ['is_thumb' => false]
+                    )->create([ 'product_id' => $product->id, ]);
+
+                    });
     }
 }

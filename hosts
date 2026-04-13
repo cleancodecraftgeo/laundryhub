@@ -1,0 +1,16 @@
+﻿#
+127.0.0.1 localhost
+::1 localhost
+127.0.0.1 		xeberler.test
+127.0.0.1      laravel-inertia-react.test #laragon magic!
+127.0.0.1      xeberler.test        #laragon magic!
+127.0.0.1      yenidil.test         #laragon magic!
+127.0.0.1      posfix.test         #laragon magic!
+127.0.0.1   laundryapp.test
+
+# Added by Docker Desktop
+10.0.0.49 host.docker.internal
+10.0.0.49 gateway.docker.internal
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section

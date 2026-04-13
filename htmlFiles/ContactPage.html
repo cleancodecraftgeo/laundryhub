@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="az" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Home Ease</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10b981',
+                        secondary: '#0ea5e9',
+                        dark: {
+                            bg: '#0f172a',
+                            card: '#1e293b',
+                            text: '#f1f5f9',
+                            muted: '#94a3b8'
+                        },
+                        light: {
+                            bg: '#f8fafc',
+                            card: '#ffffff',
+                            text: '#0f172a',
+                            muted: '#64748b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .contact-input {
+            @apply w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all;
+        }
+        .contact-input::placeholder {
+            @apply text-gray-400;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-dark-bg/80 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">HE</div>
+                    <span class="font-bold text-xl tracking-tight">Home Ease</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Home</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">How it works</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Products</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Blog</a>
+                    <a href="#" class="text-primary font-medium">Contact</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <i data-lucide="sun" class="hidden dark:block w-5 h-5 text-yellow-400"></i>
+                        <i data-lucide="moon" class="block dark:hidden w-5 h-5 text-gray-600"></i>
+                    </button>
+
+                    <button class="hidden md:flex items-center gap-2 bg-primary hover:bg-emerald-600 text-white px-4 py-2 rounded-full font-medium transition-all">
+                        <i data-lucide="building-2" class="w-4 h-4"></i>
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 bg-gradient-to-b from-emerald-50 to-white dark:from-emerald-900/20 dark:to-dark-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
+                Get in <span class="gradient-text">Touch</span>
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Have questions about bulk procurement? Our B2B specialists are here to help you find the perfect appliances for your business.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Info Cards -->
+    <section class="py-12 -mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Phone -->
+                <div class="bg-white dark:bg-dark-card rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center group hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
+                        <i data-lucide="phone" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-gray-900 dark:text-white">Call Us</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-3">Mon-Sat, 9am to 6pm IST</p>
+                    <a href="tel:+911234567890" class="text-primary font-semibold text-lg hover:underline">+91 123 456 7890</a>
+                    <p class="text-sm text-gray-400 mt-2">Toll-free for B2B inquiries</p>
+                </div>
+
+                <!-- Email -->
+                <div class="bg-white dark:bg-dark-card rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center group hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary group-hover:text-white transition-colors text-secondary">
+                        <i data-lucide="mail" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-gray-900 dark:text-white">Email Us</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-3">We reply within 24 hours</p>
+                    <a href="mailto:b2b@homeease.com" class="text-secondary font-semibold text-lg hover:underline">b2b@homeease.com</a>
+                    <p class="text-sm text-gray-400 mt-2">For quotes & support</p>
+                </div>
+
+                <!-- Office -->
+                <div class="bg-white dark:bg-dark-card rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center group hover:shadow-xl transition-all hover:-translate-y-1">
+                    <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-500 group-hover:text-white transition-colors text-purple-500">
+                        <i data-lucide="map-pin" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-gray-900 dark:text-white">Visit Us</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-3">Headquarters</p>
+                    <p class="text-gray-900 dark:text-white font-medium">Mumbai, Maharashtra</p>
+                    <p class="text-sm text-gray-400 mt-2">India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Contact Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12">
+
+                <!-- Contact Form -->
+                <div class="bg-white dark:bg-dark-card rounded-3xl p-8 md:p-10 shadow-xl border border-gray-200 dark:border-gray-700">
+                    <h2 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Send us a Message</h2>
+                    <p class="text-gray-500 dark:text-gray-400 mb-8">Fill out the form below and we'll get back to you shortly.</p>
+
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">First Name *</label>
+                                <input type="text" required class="contact-input" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Last Name *</label>
+                                <input type="text" required class="contact-input" placeholder="Doe">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address *</label>
+                                <input type="email" required class="contact-input" placeholder="john@company.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone Number *</label>
+                                <input type="tel" required class="contact-input" placeholder="+91 98765 43210">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company Name *</label>
+                            <input type="text" required class="contact-input" placeholder="Your Business Name">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Business Type</label>
+                            <select class="contact-input">
+                                <option value="">Select your business type</option>
+                                <option value="restaurant">Restaurant / Hotel</option>
+                                <option value="retail">Retail Store</option>
+                                <option value="corporate">Corporate Office</option>
+                                <option value="laundromat">Laundromat / Dry Cleaner</option>
+                                <option value="catering">Catering Service</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message *</label>
+                            <textarea rows="5" required class="contact-input resize-none" placeholder="Tell us about your requirements..."></textarea>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" id="privacy" required class="mt-1 w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary">
+                            <label for="privacy" class="text-sm text-gray-600 dark:text-gray-400">
+                                I agree to the <a href="#" class="text-primary hover:underline">Privacy Policy</a> and processing of my personal data for business inquiries.
+                            </label>
+                        </div>
+
+                        <button type="submit" class="w-full bg-primary hover:bg-emerald-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] shadow-lg shadow-emerald-500/30">
+                            <span>Send Message</span>
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="successMessage" class="hidden text-center py-12">
+                        <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="check" class="w-10 h-10 text-green-600 dark:text-green-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Message Sent!</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Thank you for contacting us. Our team will reach out to you within 24 hours.</p>
+                    </div>
+                </div>
+
+                <!-- Map & Additional Info -->
+                <div class="space-y-8">
+                    <!-- Map -->
+                    <div class="bg-white dark:bg-dark-card rounded-3xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 h-80 md:h-96">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.7410999570966!3d19.08219783958221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2s!4v1708348800000!5m2!1sen!2s"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="grayscale dark:grayscale opacity-80 dark:opacity-60">
+                        </iframe>
+                    </div>
+
+                    <!-- Quick Support -->
+                    <div class="bg-gradient-to-br from-primary to-emerald-600 rounded-3xl p-8 text-white">
+                        <h3 class="text-2xl font-bold mb-4">Need Immediate Assistance?</h3>
+                        <p class="mb-6 opacity-90">Our B2B support team is available for urgent procurement inquiries.</p>
+
+                        <div class="space-y-4">
+                            <a href="https://wa.me/911234567890" class="flex items-center gap-4 bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-colors">
+                                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">WhatsApp Support</p>
+                                    <p class="text-sm opacity-80">Usually replies instantly</p>
+                                </div>
+                            </a>
+
+                            <a href="#" class="flex items-center gap-4 bg-white/10 hover:bg-white/20 rounded-xl p-4 transition-colors">
+                                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                                    <i data-lucide="video" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">Schedule Video Call</p>
+                                    <p class="text-sm opacity-80">Book a virtual consultation</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Office Hours -->
+                    <div class="bg-white dark:bg-dark-card rounded-3xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
+                            <i data-lucide="clock" class="w-5 h-5 text-primary"></i>
+                            Office Hours
+                        </h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                                <span class="text-gray-600 dark:text-gray-400">Monday - Friday</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-100 dark:border-gray-700">
+                                <span class="text-gray-600 dark:text-gray-400">Saturday</span>
+                                <span class="font-semibold text-gray-900 dark:text-white">10:00 AM - 4:00 PM</span>
+                            </div>
+                            <div class="flex justify-between py-2">
+                                <span class="text-gray-600 dark:text-gray-400">Sunday</span>
+                                <span class="font-semibold text-red-500">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50 dark:bg-dark-card/50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+
+            <div class="space-y-4" id="faqContainer">
+                <div class="bg-white dark:bg-dark-card rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-gray-900 dark:text-white">What is the minimum order quantity for B2B pricing?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-5 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-4">
+                        Our B2B pricing typically starts at 5 units per order. However, we offer special negotiated rates for bulk orders of 20+ units. Contact our sales team for custom quotes based on your specific requirements.
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-dark-card rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-gray-900 dark:text-white">Do you provide installation services?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-5 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-4">
+                        Yes, we offer professional installation services across major cities in India. Installation is complimentary for orders above ₹50,000. For smaller orders, nominal installation charges apply based on location and appliance type.
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-dark-card rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-gray-900 dark:text-white">What are your payment terms for B2B clients?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-5 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-4">
+                        We offer flexible payment terms including Net-30 for established businesses with credit approval. New clients typically start with 50% advance and 50% on delivery. We also accept letters of credit for large export orders.
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-dark-card rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-gray-900 dark:text-white">How do I track my bulk order?</span>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div class="hidden px-6 pb-5 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-4">
+                        Once your order is dispatched, you'll receive a tracking link via email and SMS. You can also track orders through your B2B dashboard. For large shipments, our logistics team provides regular updates and estimated delivery windows.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-dark-card border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">HE</div>
+                        <span class="font-bold text-xl">Home Ease</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">India's trusted B2B marketplace for home appliances. Bulk pricing, live inventory, reliable service.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-gray-900 dark:text-white">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-primary">Products</a></li>
+                        <li><a href="#" class="hover:text-primary">Blog</a></li>
+                        <li><a href="#" class="hover:text-primary">About Us</a></li>
+                        <li><a href="#" class="hover:text-primary">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-gray-900 dark:text-white">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-primary">Help Center</a></li>
+                        <li><a href="#" class="hover:text-primary">Warranty Info</a></li>
+                        <li><a href="#" class="hover:text-primary">Returns</a></li>
+                        <li><a href="#" class="hover:text-primary">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-gray-900 dark:text-white">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email" class="flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-sm">
+                        <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-12 pt-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                © 2025 Home Ease B2B. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+            lucide.createIcons();
+        });
+
+        // FAQ toggle
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('[data-lucide="chevron-down"]');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+</body>
+</html>

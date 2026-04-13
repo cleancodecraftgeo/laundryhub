@@ -1,12 +1,29 @@
-import './bootstrap';
-import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
+import './bootstrap'
+import '../css/app.css'
+import { createApp, h, nextTick } from 'vue'
+import { createInertiaApp } from '@inertiajs/vue3'
+import PublicLayout from '@/Layouts/PublicLayout.vue'
+import * as lucide from 'lucide'
 
 createInertiaApp({
-  resolve: name => require(`./Pages/${name}.vue`).default,
-  setup({ el, App, props, plugin }) {
-    createApp({ render: () => h(App, props) })
-      .use(plugin)
-      .mount(el)
-  },
-});
+    resolve: name => {
+        const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
+        let page = pages[`./Pages/${name}.vue`]
+
+        page.default.layout = page.default.layout || PublicLayout
+        return page
+    },
+    setup({ el, App, props, plugin }) {
+        const vueApp = createApp({
+            render: () => h(App, props),
+        })
+
+        vueApp.use(plugin)
+
+        vueApp.mount(el)
+
+        nextTick(() => {
+            lucide.createIcons({ icons: lucide.icons })
+        })
+    },
+})

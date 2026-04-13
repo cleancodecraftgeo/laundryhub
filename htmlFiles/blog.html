@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="az" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Home Ease</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10b981',
+                        secondary: '#0ea5e9',
+                        dark: {
+                            bg: '#0f172a',
+                            card: '#1e293b',
+                            text: '#f1f5f9',
+                            muted: '#94a3b8'
+                        },
+                        light: {
+                            bg: '#f8fafc',
+                            card: '#ffffff',
+                            text: '#0f172a',
+                            muted: '#64748b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-dark-bg/80 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">HE</div>
+                    <span class="font-bold text-xl tracking-tight">Home Ease</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Home</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">How it works</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Products</a>
+                    <a href="#" class="text-primary font-medium">Blog</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <i data-lucide="sun" class="hidden dark:block w-5 h-5 text-yellow-400"></i>
+                        <i data-lucide="moon" class="block dark:hidden w-5 h-5 text-gray-600"></i>
+                    </button>
+                    
+                    <button class="hidden md:flex items-center gap-2 bg-primary hover:bg-emerald-600 text-white px-4 py-2 rounded-full font-medium transition-all">
+                        <i data-lucide="building-2" class="w-4 h-4"></i>
+                        Sign Up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Latest Insights</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Expert advice, industry trends, and buying guides for B2B appliance procurement
+            </p>
+        </div>
+
+        <!-- Search & Filter Section -->
+        <div class="bg-white dark:bg-dark-card rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-10">
+            <div class="flex flex-col md:flex-row gap-4">
+                <!-- Search -->
+                <div class="flex-1 relative">
+                    <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="Search articles..." 
+                        class="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                    >
+                </div>
+                
+                <!-- Category Select -->
+                <div class="md:w-64 relative">
+                    <i data-lucide="folder-open" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <select 
+                        id="categorySelect"
+                        class="w-full pl-12 pr-10 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none appearance-none cursor-pointer transition-all"
+                    >
+                        <option value="all">All Categories</option>
+                        <option value="buying-guide">Buying Guides</option>
+                        <option value="industry-news">Industry News</option>
+                        <option value="maintenance">Maintenance Tips</option>
+                        <option value="technology">Technology</option>
+                        <option value="b2b-tips">B2B Tips</option>
+                    </select>
+                    <i data-lucide="chevron-down" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"></i>
+                </div>
+            </div>
+            
+            <!-- Active Filters -->
+            <div id="activeFilters" class="flex flex-wrap gap-2 mt-4 hidden">
+                <span class="text-sm text-gray-500 dark:text-gray-400">Active filters:</span>
+                <button onclick="clearFilters()" class="text-sm text-primary hover:underline flex items-center gap-1">
+                    Clear all <i data-lucide="x" class="w-3 h-3"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Blog Grid -->
+        <!-- Desktop: 3 cols x 4 rows = 12 items -->
+        <!-- Mobile: 1 col x 12 rows = 12 items -->
+        <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Blog cards will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-20">
+            <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="file-x" class="w-10 h-10 text-gray-400"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No articles found</h3>
+            <p class="text-gray-500 dark:text-gray-400">Try adjusting your search or category filter</p>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-200 dark:border-gray-700 pt-8">
+            <!-- Showing text -->
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+                Showing <span id="showingStart" class="font-semibold text-gray-900 dark:text-white">1</span> - 
+                <span id="showingEnd" class="font-semibold text-gray-900 dark:text-white">12</span> of 
+                <span id="totalItems" class="font-semibold text-gray-900 dark:text-white">48</span> articles
+            </div>
+            
+            <!-- Page buttons -->
+            <div class="flex items-center gap-2">
+                <button 
+                    onclick="changePage('prev')" 
+                    id="prevBtn"
+                    class="p-2 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    disabled
+                >
+                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                
+                <div id="pageNumbers" class="flex items-center gap-1">
+                    <!-- Page numbers inserted by JS -->
+                </div>
+                
+                <button 
+                    onclick="changePage('next')" 
+                    id="nextBtn"
+                    class="p-2 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-dark-card border-t border-gray-200 dark:border-gray-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">HE</div>
+                        <span class="font-bold text-xl">Home Ease</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">India's trusted B2B marketplace for home appliances.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-gray-900 dark:text-white">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-primary">Products</a></li>
+                        <li><a href="#" class="hover:text-primary">Blog</a></li>
+                        <li><a href="#" class="hover:text-primary">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-gray-900 dark:text-white">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a href="#" class="hover:text-primary">Help Center</a></li>
+                        <li><a href="#" class="hover:text-primary">Contact</a></li>
+                        <li><a href="#" class="hover:text-primary">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-gray-900 dark:text-white">Newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email" class="flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-sm">
+                        <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-12 pt-8 text-center text-sm text-gray-500 dark:text-gray-400">
+                © 2025 Home Ease B2B. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Theme Toggle
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Blog Data (Sample data - 48 items for pagination demo)
+        const categories = {
+            'buying-guide': 'Buying Guides',
+            'industry-news': 'Industry News',
+            'maintenance': 'Maintenance Tips',
+            'technology': 'Technology',
+            'b2b-tips': 'B2B Tips'
+        };
+
+        const blogData = [
+            {
+                id: 1,
+                title: "How to Choose the Right Commercial Refrigerator for Your Restaurant",
+                description: "Selecting the perfect commercial refrigerator is crucial for any restaurant business. Learn about the key factors including size, energy efficiency, and cooling technology that can make or break your kitchen operations.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-15",
+                readTime: "5 min read"
+            },
+            {
+                id: 2,
+                title: "2025 Trends in Smart Home Appliances for B2B Buyers",
+                description: "Discover the latest innovations in smart appliance technology that are transforming the B2B procurement landscape. From AI-powered washing machines to IoT-enabled kitchen equipment.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-14",
+                readTime: "4 min read"
+            },
+            {
+                id: 3,
+                title: "Essential Maintenance Tips for Industrial Washing Machines",
+                description: "Regular maintenance can extend the life of your industrial washing machines by years. Here are the top maintenance practices that every facility manager should implement.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1626806775351-538068a21838?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-13",
+                readTime: "6 min read"
+            },
+            {
+                id: 4,
+                title: "Bulk Procurement Strategies for Hotel Chains",
+                description: "Learn how major hotel chains optimize their appliance procurement process. Discover negotiation tactics, warranty management, and logistics coordination for large-scale purchases.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-12",
+                readTime: "8 min read"
+            },
+            {
+                id: 5,
+                title: "Energy Efficiency Ratings: What B2B Buyers Need to Know",
+                description: "Understanding energy efficiency ratings can save your business thousands in operational costs. We break down the latest rating systems and what they mean for your bottom line.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-11",
+                readTime: "5 min read"
+            },
+            {
+                id: 6,
+                title: "India's Appliance Manufacturing Industry Report 2025",
+                description: "An in-depth analysis of India's growing appliance manufacturing sector, including key players, market trends, and opportunities for B2B buyers looking to source locally.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1565514020176-db98e3c15463?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-10",
+                readTime: "10 min read"
+            },
+            {
+                id: 7,
+                title: "Steam Oven Technology: Revolutionizing Commercial Kitchens",
+                description: "Steam ovens are becoming essential in modern commercial kitchens. Learn about the benefits of combi-steam technology and how it can improve food quality and consistency.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-09",
+                readTime: "4 min read"
+            },
+            {
+                id: 8,
+                title: "Winter HVAC Maintenance Checklist for Businesses",
+                description: "Prepare your commercial HVAC systems for winter with our comprehensive maintenance checklist. Prevent costly breakdowns during peak heating season.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-08",
+                readTime: "6 min read"
+            },
+            {
+                id: 9,
+                title: "Negotiating Credit Terms with Appliance Suppliers",
+                description: "Effective strategies for negotiating favorable credit terms with appliance manufacturers and distributors. Improve your cash flow while maintaining strong supplier relationships.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-07",
+                readTime: "7 min read"
+            },
+            {
+                id: 10,
+                title: "Comparing Top Load vs Front Load Washers for Laundromats",
+                description: "Which is better for your laundromat business? We compare efficiency, durability, customer preference, and total cost of ownership for both washer types.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-06",
+                readTime: "6 min read"
+            },
+            {
+                id: 11,
+                title: "GST Changes Impacting Appliance Procurement in 2025",
+                description: "Recent GST rate adjustments affect how B2B buyers purchase appliances. Understand the implications for your business and how to optimize your tax strategy.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-05",
+                readTime: "5 min read"
+            },
+            {
+                id: 12,
+                title: "AI-Powered Predictive Maintenance in Modern Appliances",
+                description: "How artificial intelligence is transforming appliance maintenance from reactive to predictive, saving businesses time and money on repairs.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-04",
+                readTime: "5 min read"
+            },
+            {
+                id: 13,
+                title: "Deep Cleaning Guide for Commercial Dishwashers",
+                description: "Step-by-step guide to thoroughly cleaning your commercial dishwasher. Maintain hygiene standards and ensure optimal performance with these proven techniques.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-03",
+                readTime: "6 min read"
+            },
+            {
+                id: 14,
+                title: "Building Long-term Relationships with Appliance Vendors",
+                description: "Strong vendor relationships lead to better pricing, priority service, and exclusive deals. Learn how to cultivate partnerships that benefit both parties.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-02",
+                readTime: "5 min read"
+            },
+            {
+                id: 15,
+                title: "Microwave Buying Guide for Office Break Rooms",
+                description: "What to look for when purchasing microwaves for corporate environments. Durability, safety features, and capacity considerations for high-usage scenarios.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&q=80&w=600",
+                date: "2025-02-01",
+                readTime: "4 min read"
+            },
+            {
+                id: 16,
+                title: "Supply Chain Updates: Appliance Availability Q1 2025",
+                description: "Current status of appliance supply chains, lead times, and inventory levels. Plan your procurement strategy with the latest market intelligence.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-31",
+                readTime: "4 min read"
+            },
+            {
+                id: 17,
+                title: "Induction vs Gas: Choosing Cooking Equipment for Catering",
+                description: "Compare induction and gas cooking technologies for catering businesses. Speed, efficiency, safety, and cost analysis for mobile and fixed kitchen setups.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-30",
+                readTime: "7 min read"
+            },
+            {
+                id: 18,
+                title: "The Rise of Modular Kitchen Appliances in India",
+                description: "Modular kitchen designs are driving demand for integrated appliances. Explore the latest trends in built-in ovens, hobs, and refrigerators.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1556909114-44e3e70034e2?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-29",
+                readTime: "5 min read"
+            },
+            {
+                id: 19,
+                title: "Preventive Maintenance Schedule for Hotel Laundry Equipment",
+                description: "Create an effective maintenance calendar for your hotel's laundry operations. Daily, weekly, and monthly tasks to minimize downtime.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1517677208171-0bc1725a3c11?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-28",
+                readTime: "8 min read"
+            },
+            {
+                id: 20,
+                title: "Leveraging Bulk Purchase Discounts Effectively",
+                description: "Maximize your savings through strategic bulk purchasing. Timing, negotiation techniques, and bundling strategies for appliance procurement.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-27",
+                readTime: "6 min read"
+            },
+            {
+                id: 21,
+                title: "Water Purifier Selection Guide for Corporate Offices",
+                description: "Choosing the right water purification system for your office. Capacity calculations, filter types, and maintenance requirements explained.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-26",
+                readTime: "5 min read"
+            },
+            {
+                id: 22,
+                title: "New Energy Efficiency Standards Announced for 2026",
+                description: "Upcoming regulatory changes will affect appliance efficiency requirements. Prepare your procurement plans for the new standards.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-25",
+                readTime: "4 min read"
+            },
+            {
+                id: 23,
+                title: "Smart Sensors in Modern Refrigeration Equipment",
+                description: "How IoT sensors are revolutionizing temperature monitoring and food safety in commercial refrigeration. Real-time alerts and automated compliance reporting.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1571175443880-49e1d58b794a?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-24",
+                readTime: "5 min read"
+            },
+            {
+                id: 24,
+                title: "Air Conditioner Filter Cleaning and Replacement Guide",
+                description: "Proper AC filter maintenance improves air quality and efficiency. Learn the correct cleaning procedures and replacement schedules for commercial units.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1631545308772-81a0e0a3a6ae?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-23",
+                readTime: "5 min read"
+            },
+            {
+                id: 25,
+                title: "Managing Warranty Claims Across Multiple Locations",
+                description: "Streamline warranty management for multi-location businesses. Centralized tracking systems and best practices for hassle-free claims.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-22",
+                readTime: "6 min read"
+            },
+            {
+                id: 26,
+                title: "Vacuum Cleaner Selection for Hospitality Industry",
+                description: "Different hospitality environments require specific vacuum solutions. Compare upright, canister, and backpack models for hotels and resorts.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1558317374-a3545eca46f2?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-21",
+                readTime: "5 min read"
+            },
+            {
+                id: 27,
+                title: "Appliance Export Market Trends from India",
+                description: "India's appliance exports are growing rapidly. Opportunities for international B2B buyers and quality standards to expect.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-20",
+                readTime: "4 min read"
+            },
+            {
+                id: 28,
+                title: "Heat Pump Technology in Commercial Dryers",
+                description: "Heat pump dryers offer significant energy savings. Understand the technology and calculate ROI for your laundry operation.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-19",
+                readTime: "6 min read"
+            },
+            {
+                id: 29,
+                title: "Seasonal Appliance Maintenance Calendar",
+                description: "Year-round maintenance schedule for all your commercial appliances. Seasonal checklists to prevent breakdowns during peak usage.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-18",
+                readTime: "7 min read"
+            },
+            {
+                id: 30,
+                title: "Evaluating Total Cost of Ownership for Appliances",
+                description: "Look beyond purchase price. Calculate the true cost of appliance ownership including energy, maintenance, and lifespan factors.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-17",
+                readTime: "6 min read"
+            },
+            {
+                id: 31,
+                title: "Blender and Mixer Selection for Food Service",
+                description: "Commercial kitchen mixers and blenders vary widely in capability. Match the right equipment to your menu requirements and volume.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-16",
+                readTime: "5 min read"
+            },
+            {
+                id: 32,
+                title: "Raw Material Costs Impact Appliance Pricing",
+                description: "Steel, copper, and semiconductor prices are affecting appliance costs. Insights into pricing trends and procurement timing strategies.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1611974765270-ca1258634369?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-15",
+                readTime: "4 min read"
+            },
+            {
+                id: 33,
+                title: "Voice Control Integration in Smart Appliances",
+                description: "Voice-activated appliances are entering the B2B market. Benefits and considerations for hospitality and corporate environments.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1558089687-f282ffcbc126?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-14",
+                readTime: "4 min read"
+            },
+            {
+                id: 34,
+                title: "Coffee Machine Descaling and Cleaning Protocols",
+                description: "Proper maintenance ensures consistent coffee quality and machine longevity. Daily cleaning routines and monthly descaling procedures.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-13",
+                readTime: "5 min read"
+            },
+            {
+                id: 35,
+                title: "Creating Standardized Appliance Specifications",
+                description: "Develop consistent procurement standards across your organization. Specification templates that ensure quality and compatibility.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-12",
+                readTime: "6 min read"
+            },
+            {
+                id: 36,
+                title: "Ice Machine Capacity Planning Guide",
+                description: "Calculate your ice production needs accurately. Types of ice machines and sizing recommendations for different food service operations.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-11",
+                readTime: "5 min read"
+            },
+            {
+                id: 37,
+                title: "Appliance Recycling and Disposal Regulations",
+                description: "New e-waste regulations affect how businesses dispose of old appliances. Compliance requirements and responsible recycling options.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-10",
+                readTime: "4 min read"
+            },
+            {
+                id: 38,
+                title: "UV-C Technology in Appliance Sanitization",
+                description: "Ultraviolet light technology is being integrated into appliances for enhanced hygiene. Applications in washing machines and refrigerators.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-09",
+                readTime: "5 min read"
+            },
+            {
+                id: 39,
+                title: "Grease Trap Maintenance for Commercial Kitchens",
+                description: "Regular grease trap cleaning prevents costly plumbing issues. Maintenance frequency and professional service vs DIY cleaning.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-08",
+                readTime: "5 min read"
+            },
+            {
+                id: 40,
+                title: "Consolidating Orders for Better Pricing",
+                description: "Combine purchases across departments or locations for volume discounts. Coordination strategies and centralized procurement benefits.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-07",
+                readTime: "5 min read"
+            },
+            {
+                id: 41,
+                title: "Food Warmer and Holding Cabinet Selection",
+                description: "Maintain food safety and quality with proper holding equipment. Types of warmers and features for different service styles.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1556909114-44e3e70034e2?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-06",
+                readTime: "6 min read"
+            },
+            {
+                id: 42,
+                title: "Logistics Partnerships Improve Delivery Times",
+                description: "Strategic logistics alliances are reducing appliance delivery lead times. How B2B platforms are optimizing supply chain efficiency.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-05",
+                readTime: "3 min read"
+            },
+            {
+                id: 43,
+                title: "Inverter Technology in Commercial AC Units",
+                description: "Inverter compressors deliver significant energy savings in commercial cooling. Technology explained and ROI calculations.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1631545308772-81a0e0a3a6ae?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-04",
+                readTime: "5 min read"
+            },
+            {
+                id: 44,
+                title: "Deep Fryer Oil Management Best Practices",
+                description: "Proper oil maintenance extends fryer life and food quality. Filtering schedules, temperature management, and oil disposal.",
+                category: "maintenance",
+                image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-03",
+                readTime: "6 min read"
+            },
+            {
+                id: 45,
+                title: "Appliance Financing Options for SMEs",
+                description: "Explore leasing, hire purchase, and equipment loans for appliance acquisition. Compare financing methods for optimal cash flow.",
+                category: "b2b-tips",
+                image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-02",
+                readTime: "6 min read"
+            },
+            {
+                id: 46,
+                title: "Display Freezer Selection for Retail",
+                description: "Attractive product presentation combined with reliable cooling. Glass door freezers, lighting options, and merchandising features.",
+                category: "buying-guide",
+                image: "https://images.unsplash.com/photo-1571175443880-49e1d58b794a?auto=format&fit=crop&q=80&w=600",
+                date: "2025-01-01",
+                readTime: "5 min read"
+            },
+            {
+                id: 47,
+                title: "Manufacturing Automation Reduces Lead Times",
+                description: "Smart factories are producing appliances faster than ever. Impact on B2B availability and customization options.",
+                category: "industry-news",
+                image: "https://images.unsplash.com/photo-1565514020176-db98e3c15463?auto=format&fit=crop&q=80&w=600",
+                date: "2024-12-31",
+                readTime: "4 min read"
+            },
+            {
+                id: 48,
+                title: "Remote Diagnostics in Commercial Appliances",
+                description: "Technicians can now troubleshoot appliances remotely. Reduced downtime and maintenance cost benefits for businesses.",
+                category: "technology",
+                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600",
+                date: "2024-12-30",
+                readTime: "5 min read"
+            }
+        ];
+
+        // State
+        let currentPage = 1;
+        const itemsPerPage = 12;
+        let filteredData = [...blogData];
+        let searchTerm = '';
+        let selectedCategory = 'all';
+
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const categorySelect = document.getElementById('categorySelect');
+        const blogGrid = document.getElementById('blogGrid');
+        const emptyState = document.getElementById('emptyState');
+        const pagination = document.getElementById('pagination');
+        const showingStart = document.getElementById('showingStart');
+        const showingEnd = document.getElementById('showingEnd');
+        const totalItems = document.getElementById('totalItems');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pageNumbers = document.getElementById('pageNumbers');
+        const activeFilters = document.getElementById('activeFilters');
+
+        // Initialize
+        function init() {
+            renderBlog();
+            updatePagination();
+            
+            // Event listeners
+            searchInput.addEventListener('input', handleSearch);
+            categorySelect.addEventListener('change', handleCategoryChange);
+        }
+
+        // Filter functions
+        function handleSearch(e) {
+            searchTerm = e.target.value.toLowerCase();
+            currentPage = 1;
+            filterData();
+        }
+
+        function handleCategoryChange(e) {
+            selectedCategory = e.target.value;
+            currentPage = 1;
+            filterData();
+        }
+
+        function filterData() {
+            filteredData = blogData.filter(item => {
+                const matchesSearch = item.title.toLowerCase().includes(searchTerm) || 
+                                    item.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+            
+            updateActiveFilters();
+            renderBlog();
+            updatePagination();
+        }
+
+        function updateActiveFilters() {
+            if (searchTerm || selectedCategory !== 'all') {
+                activeFilters.classList.remove('hidden');
+            } else {
+                activeFilters.classList.add('hidden');
+            }
+        }
+
+        function clearFilters() {
+            searchTerm = '';
+            selectedCategory = 'all';
+            searchInput.value = '';
+            categorySelect.value = 'all';
+            currentPage = 1;
+            filterData();
+        }
+
+        // Truncate text to 150 chars
+        function truncateText(text, maxLength = 150) {
+            if (text.length <= maxLength) return text;
+            return text.substring(0, maxLength).trim() + '...';
+        }
+
+        // Render blog cards
+        function renderBlog() {
+            if (filteredData.length === 0) {
+                blogGrid.innerHTML = '';
+                blogGrid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                pagination.classList.add('hidden');
+                return;
+            }
+
+            blogGrid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+            pagination.classList.remove('hidden');
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageData = filteredData.slice(start, end);
+
+            blogGrid.innerHTML = pageData.map(item => `
+                <article class="group bg-white dark:bg-dark-card rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                    <div class="aspect-video overflow-hidden relative">
+                        <img src="${item.image}" alt="${item.title}" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-primary/90 text-white text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
+                                ${categories[item.category]}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-3">
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="calendar" class="w-3 h-3"></i>
+                                ${new Date(item.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="clock" class="w-3 h-3"></i>
+                                ${item.readTime}
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-3 text-gray-900 dark:text-white group-hover:text-primary transition-colors line-clamp-2">
+                            ${item.title}
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 flex-1 line-clamp-2">
+                            ${truncateText(item.description)}
+                        </p>
+                        <a href="#" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all">
+                            Read More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+
+            // Re-initialize icons for new content
+            lucide.createIcons();
+        }
+
+        // Pagination
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            const start = (currentPage - 1) * itemsPerPage + 1;
+            const end = Math.min(currentPage * itemsPerPage, filteredData.length);
+
+            showingStart.textContent = filteredData.length > 0 ? start : 0;
+            showingEnd.textContent = end;
+            totalItems.textContent = filteredData.length;
+
+            // Update buttons
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+
+            // Generate page numbers
+            let pagesHtml = '';
+            const maxVisiblePages = 5;
+            
+            if (totalPages <= maxVisiblePages) {
+                for (let i = 1; i <= totalPages; i++) {
+                    pagesHtml += createPageButton(i, i === currentPage);
+                }
+            } else {
+                // Complex pagination with ellipsis
+                if (currentPage <= 3) {
+                    for (let i = 1; i <= 4; i++) {
+                        pagesHtml += createPageButton(i, i === currentPage);
+                    }
+                    pagesHtml += `<span class="px-2 text-gray-400">...</span>`;
+                    pagesHtml += createPageButton(totalPages, false);
+                } else if (currentPage >= totalPages - 2) {
+                    pagesHtml += createPageButton(1, false);
+                    pagesHtml += `<span class="px-2 text-gray-400">...</span>`;
+                    for (let i = totalPages - 3; i <= totalPages; i++) {
+                        pagesHtml += createPageButton(i, i === currentPage);
+                    }
+                } else {
+                    pagesHtml += createPageButton(1, false);
+                    pagesHtml += `<span class="px-2 text-gray-400">...</span>`;
+                    for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                        pagesHtml += createPageButton(i, i === currentPage);
+                    }
+                    pagesHtml += `<span class="px-2 text-gray-400">...</span>`;
+                    pagesHtml += createPageButton(totalPages, false);
+                }
+            }
+
+            pageNumbers.innerHTML = pagesHtml;
+        }
+
+        function createPageButton(page, isActive) {
+            return `
+                <button onclick="goToPage(${page})" 
+                        class="w-10 h-10 rounded-lg font-medium transition-all ${isActive 
+                            ? 'bg-primary text-white' 
+                            : 'border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'}">
+                    ${page}
+                </button>
+            `;
+        }
+
+        function changePage(direction) {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            
+            if (direction === 'prev' && currentPage > 1) {
+                currentPage--;
+            } else if (direction === 'next' && currentPage < totalPages) {
+                currentPage++;
+            }
+            
+            renderBlog();
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderBlog();
+            updatePagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>

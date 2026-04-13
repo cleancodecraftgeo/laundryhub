@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->ulid('id')->primary();
+            $table->foreignUlid('category_id')->nullable()
+            ->constrained('categories')->cascadeOnDelete();
+            $table->text('icon')->nullable();
+            
             $table->string("name_en")->nullable();
             $table->string('name_ge')->nullable();
             $table->string('slug')->nullable();

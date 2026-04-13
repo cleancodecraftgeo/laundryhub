@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
-use App\Enums\AttributeStatusEnum;
-use App\Models\Traits\HasActive;
-use Illuminate\Database\Eloquent\Builder;
+
+use App\Models\Traits\HasStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Str;
+
 
 class Attribute extends Model
 {
     use HasFactory;
-    use HasActive;
+    use HasStatus;
 
     use HasUlids;
 

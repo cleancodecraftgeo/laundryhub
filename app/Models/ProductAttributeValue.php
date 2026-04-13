@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Product;
 use App\Models\Attribute;
-use App\Models\Traits\HasActive;
+use App\Models\Product;
+
+use App\Models\Traits\HasStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductAttributeValue extends Model
 {
      use HasFactory;
-     use HasUlids, HasActive;
+     use HasUlids, HasStatus;
 
     protected $fillable = [
         'product_id',

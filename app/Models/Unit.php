@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasActive;
+use App\Models\Traits\HasStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +12,7 @@ class Unit extends Model
 {
     use HasFactory;
     use HasUlids;
-    use HasActive;
+    use HasStatus;
 
     protected $guarded = [];
 

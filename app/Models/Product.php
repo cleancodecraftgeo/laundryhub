@@ -4,20 +4,21 @@ namespace App\Models;
 
 use App\Models\Category;
 use App\Models\ProductAttributeValue;
+use App\Models\ProductImage;
 use App\Models\ProductTranslate;
-use App\Models\Traits\HasActive;
+use App\Models\Traits\HasStatus;
 use App\Models\Traits\HasTranslate;
 use App\Models\Unit;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 /**
  * @method Builder|Product query()
- * @method Builder|Product active()
+ * @method Builder|Product status()
  */
 
 class Product extends Model
@@ -25,7 +26,7 @@ class Product extends Model
 
     use HasFactory;
     use HasUlids;
-    use HasActive;
+    use HasStatus;
     use HasTranslate;
 
     protected $fillable = [
@@ -36,12 +37,15 @@ class Product extends Model
         'unit_id'
     ];
 
+     protected $appends = ['thumbnail'];
+
     public function casts()
     {
         return[
             'created_at' => 'datetime',
             'updated_at' => 'datetime'
         ];
+
     }
 
 
@@ -67,5 +71,16 @@ class Product extends Model
 
     public function translations():HasMany{
         return $this->hasMany(ProductTranslate::class);
+    }
+
+    public function images(){
+        return $this->hasMany(ProductImage::class);
+    }
+
+    protected function thumbnail():Attribute{
+       return Attribute::get(function(){
+                $thumbnail = $this->images->where('is_thumb',true)->first();
+                return $thumbnail?->src ?? asset('storage/default_product.png');
+       });
     }
 }

@@ -23,14 +23,15 @@ class DatabaseSeeder extends Seeder
     {
 
     $this->call([
-        UnitSeeder::class,
         CategorySeeder::class,
-        AttributeSeeder::class,
+        UnitSeeder::class,
+      //  AttributeSeeder::class,
 
       //  ProductAttributeValueSeeder::class,
 ]);
 
     Product::factory(100)->create();
+    
 
     }
 }

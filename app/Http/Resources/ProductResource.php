@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\ImageResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
@@ -19,7 +20,8 @@ class ProductResource extends JsonResource
             'id' => $this->resource->id,
             'title' => $this->resource->title,
             'description' => $this->resource->description,
-            'image' => $this->resource->image,
+            'image' => $this->resource->thumbnail,
+            'images' => ImageResource::collection($this->whenLoaded('images')),
             'date' =>[
                'human' => Carbon::parse($this->resource->created_at)->diffForHumans(),
                 // getHumanDiffOptions(),
