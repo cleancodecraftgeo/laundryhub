@@ -154,6 +154,8 @@ watch(product, (p) => {
   console.log(product?.category?.name_en)
 
 }, { immediate: true })
+
+
 </script>
 
 <template>

@@ -100,16 +100,14 @@ public function index()
 
 // }
 
-public function show($id)
+public function show($locale = null, $id)
 {
-    $product = Product::with(['category', 'images', 'translations'])
-    ->findOrFail($id);
-// dd($product->toArray());
-// dd($product->name, app()->getLocale());
+     $product = Product::with(['category', 'images', 'translations'])
+        ->findOrFail($id);
 
     return Inertia::render('Products/Show', [
         'product' => (new ProductResource($product))->resolve(),
-
+    
         'meta' => [
             'title' => $product->name . ' | Bioline',
             'description' => $product->description,

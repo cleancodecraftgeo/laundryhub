@@ -337,7 +337,7 @@ const visiblePages = computed(() => {
 
         <!-- ACTION -->
        <Link
-            :href="`/products/${product.id}`"
+            :href="`/${currentLang}/products/${product.id}`"
             class="block text-center bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg text-sm font-medium"
           >
             Detail

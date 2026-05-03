@@ -47,7 +47,7 @@
                                     <i data-lucide="settings" class="w-5 h-5 "></i>
 
 
-                                    <Link :href="`/category/${categ.slug}`" class="hover:underline text-lg font-semibold whitespace-nowrap">
+                                    <Link :href="`/${locale}/category/${categ.slug}`" class="hover:underline text-lg font-semibold whitespace-nowrap">
                                         {{ categ.name_en }}
                                     </Link>
 
@@ -57,7 +57,7 @@
 
                                     <li v-for="sub in categ.subcategories" :key="sub.id">
 
-                                        <Link :href="`/category/${categ.slug}/${sub.slug}`"
+                                        <Link :href="`/${locale}/category/${categ.slug}/${sub.slug}`"
                                             class="hover:text-black dark:hover:text-white">
                                             • {{ sub.name_ge }}
                                         </Link>
@@ -181,11 +181,10 @@ const showCateg = ref(false)
 const isMobileMenuOpen = ref(false)
 const isLangOpen = ref(false)
 
+const locale = computed(() => page.props.locale || 'en')
 
 
-const currentLang = computed(() => {
-    return page.props.locale ?? 'en'
-})
+const currentLang = computed(() => page.props.locale)
 
 onMounted(() => {
 

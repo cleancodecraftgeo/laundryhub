@@ -64,9 +64,9 @@ Route::get('/set-locale/{lang}', function ($lang) {
     return back();
 });
 
-Route::get('/products/{id}', [ProductController::class, 'show'])
-    ->where('id', '.*')
-    ->name('products.show');
+Route::prefix('{locale}')->group(function () {
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+});
 
 Route::get('/products',[ProductController::class,'index']);
 
