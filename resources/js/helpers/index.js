@@ -10,6 +10,8 @@ const price = (value=0)=>{
 
 return {truncate,price}
 
+
+ 
 }
 
 

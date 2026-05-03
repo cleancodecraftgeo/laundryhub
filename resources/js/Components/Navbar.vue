@@ -76,19 +76,47 @@
 
 
 
-                <!-- RIGHT SIDE -->
-                <div class="flex items-center gap-4">
+               <!-- RIGHT SIDE -->
+<div class="flex items-center gap-4">
 
-                    <!-- THEME TOGGLE -->
-                    <button @click="toggleTheme()"
-                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+    <!-- THEME TOGGLE -->
+    <button @click="toggleTheme()"
+        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
 
-                        <i data-lucide="sun" class="hidden dark:block w-5 h-5 text-yellow-400"></i>
-                        <i data-lucide="moon" class="block dark:hidden w-5 h-5 text-gray-600"></i>
+        <i data-lucide="sun" class="hidden dark:block w-5 h-5 text-yellow-400"></i>
+        <i data-lucide="moon" class="block dark:hidden w-5 h-5 text-gray-600"></i>
 
-                    </button>
+    </button>
 
-                </div>
+
+    <!-- 🌍 LANGUAGE SWITCH  -->
+    <div class="relative">
+
+        <button
+            @click="isLangOpen = !isLangOpen"
+            class="px-3 py-1 rounded-md bg-dark-800 text-sm text-white hover:bg-dark-700 transition"
+        >
+            {{ currentLang.toUpperCase() }}
+        </button>
+
+        <div
+            v-if="isLangOpen"
+            class="absolute right-0 mt-2 w-24 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg overflow-hidden"
+        >
+            <a href="/set-locale/en"
+               class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-slate-800">
+                EN
+            </a>
+
+            <a href="/set-locale/ge"
+               class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-slate-800">
+                GE
+            </a>
+        </div>
+
+    </div>
+
+</div>
 
 
 
@@ -109,6 +137,7 @@
                 </button>
 
             </div>
+
 
         </div>
 
@@ -143,14 +172,20 @@
 
 <script setup>
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted,computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import { Settings, User, LogOut } from 'lucide-vue-next';
 const page = usePage()
 
 const showCateg = ref(false)
 const isMobileMenuOpen = ref(false)
+const isLangOpen = ref(false)
 
+
+
+const currentLang = computed(() => {
+    return page.props.locale ?? 'en'
+})
 
 onMounted(() => {
 

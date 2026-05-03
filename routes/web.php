@@ -56,9 +56,18 @@ Route::get('/', function() {
     return Inertia::render('Home/Home');
 });
 
-Route::get('/product', function() {
-    return Inertia::render('Products/Product');
+//Dil deyishmek ucun Route
+Route::get('/set-locale/{lang}', function ($lang) {
+    session(['locale' => $lang]);
+    app()->setLocale($lang);
+
+    return back();
 });
+
+Route::get('/products/{id}', [ProductController::class, 'show'])
+    ->where('id', '.*')
+    ->name('products.show');
+
 Route::get('/products',[ProductController::class,'index']);
 
 Route::get('/services', function() {

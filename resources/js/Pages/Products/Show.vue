@@ -1,6 +1,62 @@
  <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,computed,watch } from 'vue';
+import { useHead } from '@vueuse/head'
+import { usePage } from '@inertiajs/vue3'
 
+
+import { useHelpers } from '../../helpers'
+const { truncate, price } = useHelpers()
+const page = usePage()
+
+const product = computed(() => page.props.product)
+const meta = computed(() => page.props.meta ?? {})
+
+onMounted(() => {
+      // route.meta şəklində daxil oluruq
+    mainImage.value = product?.image
+console.log("category adi : ", product.category ? product.category.name : '' )
+console.log("duzgun olani",product?.category?.name)
+    console.log("FULL PRODUCT:", product.description);
+    console.log("images :",product.images.data)
+    console.log("images :",product.image)
+    });
+
+    import { router } from '@inertiajs/vue3'
+
+function changeLang(lang) {
+   dil =  router.visit(`/set-locale/${lang}`)
+
+   console.log("dil deyishmek",changeLang)
+
+}
+
+
+const locale = page.props.locale || 'en'
+
+const categoryName = computed(() => {
+  return (
+    product.value?.category?.name_en ||
+    product.value?.category?.name_ge ||
+    'Category'
+  )
+})
+console.log("categoryName: ",categoryName.value ?? "yoxdur");
+
+useHead({
+  title: meta.title,
+  meta: [
+    {
+      name: 'description',
+      content: meta.description
+    }
+  ],
+  link: [
+    {
+      rel: 'canonical',
+      href: window.location.href
+    }
+  ]
+})
 
 
 // Quantity
@@ -30,24 +86,74 @@ const switchTab = (tabName) =>{
         }
 
 // Images
-const images = ref([
-  'https://images.unsplash.com/photo-1626806775351-538068a21838?auto=format&fit=crop&q=80&w=1000',
-  'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=300',
-  'https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?auto=format&fit=crop&q=80&w=300',
-  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=300'
-]);
-const mainImage = ref(images.value[0]);
-function changeImage(index) {
-  mainImage.value = images.value[index];
+// const images = ref([
+//   'https://images.unsplash.com/photo-1626806775351-538068a21838?auto=format&fit=crop&q=80&w=1000',
+//   'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=300',
+//   'https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?auto=format&fit=crop&q=80&w=300',
+//   'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=300'
+// ]);
+
+const images = computed(() => {
+    return product.value?.images?.data || []
+})
+//images^
+
+// const mainImage = ref(images.value[0]);
+// function changeImage(index) {
+//   mainImage.value = images.value[index];
+// }
+
+
+
+const activeImageIndex = ref(0)
+
+const mainImage = computed(() => {
+    return images.value[activeImageIndex.value]?.src || product.value?.image
+})
+
+onMounted(() => {
+    mainImage.value = images.value[0] || product.value?.image
+})
+
+//mainImage^
+
+function changeImage(src) {
+    mainImage.value = src;
 }
 
 // Tabs
 const activeTab = ref('desc');
 
+
+const breadcrumb = computed(() => [
+  { name: 'Home', url: '/' },
+  { name: product.value?.category?.name },
+  { name: product.value?.title }
+])
+
+console.log("category varmi? : ",product.category)
 // Lucide icons init
 onMounted(() => {
   switchTab("desc")
 });
+
+
+watch(
+  () => product.value,
+  (p) => {
+    if (!p) return
+    mainImage.value = p.image || p.images?.data?.[0]?.src
+  },
+  { immediate: true }
+)
+
+watch(product, (p) => {
+  console.log("FULL PRODUCT:", p)
+  console.log("CATEGORY:", p?.category)
+  console.log("name_en:", p?.category?.name_en)
+  console.log(product?.category?.name_en)
+
+}, { immediate: true })
 </script>
 
 <template>
@@ -55,16 +161,40 @@ onMounted(() => {
 
     <main class="pt-24 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+
+
         <!-- Breadcrumb -->
-        <nav class="flex mb-8 text-sm text-gray-500 dark:text-gray-400">
-            <ol class="flex items-center space-x-2">
-                <li><a href="#" class="hover:text-primary">Home</a></li>
-                <li><i data-lucide="chevron-right" class="w-4 h-4"></i></li>
-                <li><a href="#" class="hover:text-primary">Cleaning & Laundry</a></li>
-                <li><i data-lucide="chevron-right" class="w-4 h-4"></i></li>
-                <li class="text-gray-900 dark:text-white font-medium">LG AI DD™ Washer</li>
-            </ol>
-        </nav>
+<nav class="flex mb-8 text-sm text-gray-500 dark:text-gray-400">
+    <ol class="flex items-center space-x-2">
+
+       <li>
+  <a href="/">Home</a>
+</li>
+
+<li v-for="cat in product?.category?.breadcrumb" :key="cat.id">
+  <i class="mx-2">></i>
+
+  <a
+    :href="`/category/${cat.id}`"
+    class="hover:text-primary"
+  >
+    {{ cat.name }}
+  </a>
+</li>
+
+<li>
+  <i class="mx-2">></i>
+</li>
+
+<li class="text-gray-900 dark:text-white font-medium">
+  {{ product?.name }}
+</li>
+
+    </ol>
+</nav>
+
+
+
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
@@ -72,9 +202,9 @@ onMounted(() => {
             <div class="space-y-4">
                 <!-- Main Image -->
                 <div class="relative aspect-square bg-white dark:bg-dark-card rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg group">
-                    <img id="mainImage" src="https://images.unsplash.com/photo-1626806775351-538068a21838?auto=format&fit=crop&q=80&w=1000"
+                    <img :src="mainImage"
                          alt="LG Washing Machine"
-                         class="w-full h-full object-cover zoom-image cursor-zoom-in">
+                         class="w-full md-max-w-auto md-max-h-42 h-full object-cover zoom-image cursor-zoom-in object-cover">
 
                     <!-- Badges -->
                     <div class="absolute top-4 left-4 flex flex-col gap-2">
@@ -90,19 +220,16 @@ onMounted(() => {
 
                 <!-- Thumbnail Gallery -->
                 <div class="grid grid-cols-4 gap-4">
-                    <button onclick="changeImage(0)" class="thumb-btn aspect-square rounded-xl overflow-hidden border-2 border-primary bg-white dark:bg-dark-card transition-all hover:opacity-80">
-                        <img src="https://images.unsplash.com/photo-1626806775351-538068a21838?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
-                    </button>
-                    <button onclick="changeImage(1)" class="thumb-btn aspect-square rounded-xl overflow-hidden border-2 border-transparent bg-white dark:bg-dark-card transition-all hover:opacity-80 opacity-60 hover:opacity-100">
-                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
-                    </button>
-                    <button onclick="changeImage(2)" class="thumb-btn aspect-square rounded-xl overflow-hidden border-2 border-transparent bg-white dark:bg-dark-card transition-all hover:opacity-80 opacity-60 hover:opacity-100">
-                        <img src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
-                    </button>
-                    <button onclick="changeImage(3)" class="thumb-btn aspect-square rounded-xl overflow-hidden border-2 border-transparent bg-white dark:bg-dark-card transition-all hover:opacity-80 opacity-60 hover:opacity-100">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
-                    </button>
-                </div>
+    <button
+        v-for="(img, index) in product?.images?.data"
+        :key="index"
+        @click="activeImageIndex = index"
+        class="aspect-square rounded-xl overflow-hidden border-2 bg-white dark:bg-dark-card transition-all hover:opacity-80"
+        :class="mainImage === img.src ? 'border-primary' : 'border-transparent opacity-60 hover:opacity-100'"
+    >
+        <img :src="img.src" class="w-full h-full object-cover">
+    </button>
+</div>
             </div>
 
             <!-- Product Info Section -->
@@ -110,17 +237,18 @@ onMounted(() => {
                 <!-- Header -->
                 <div class="mb-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="text-primary font-semibold text-sm tracking-wider uppercase">LG Electronics</span>
+                        <span class="text-primary font-semibold text-sm tracking-wider uppercase">{{product?.des ?? "data yoxdur"}} : gelecek data</span>
 
                     </div>
-                    <h1 class="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">LG F4V5RGP0W AI DD™ 9kg Front Load Washer</h1>
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">{{ truncate(product?.description, 20) }}</h1>
+
                     <p class="text-gray-500 dark:text-gray-400">AI Fabric Protection | Steam+™ | ThinQ™ Connectivity</p>
                 </div>
 
                 <!-- Price & Stock -->
                 <div class="bg-gray-50 dark:bg-dark-card rounded-2xl p-6 mb-6 border border-gray-200 dark:border-gray-700">
                     <div class="flex items-end gap-3 mb-4">
-                        <span class="text-4xl font-bold text-primary">₼ 1,299</span>
+                        <span class="text-4xl font-bold text-primary">₼ {{product.price}}</span>
                         <span class="text-lg text-gray-400 line-through mb-1">₼ 1,599</span>
                         <span class="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm font-bold px-2 py-1 rounded mb-1">-18%</span>
                     </div>
@@ -197,11 +325,11 @@ onMounted(() => {
                 <!-- Actions -->
                 <div class="flex flex-col sm:flex-row gap-4 mb-8">
                     <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-xl overflow-hidden">
-                        <button onclick="updateQty(-1)" class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
+                        <button @click="updateQty(-1)" class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
                             <i data-lucide="minus" class="w-4 h-4"></i>
                         </button>
                         <input type="number" id="qtyInput" value="1" min="1" class="w-16 text-center bg-transparent border-none focus:ring-0 font-bold text-gray-900 dark:text-white" readonly>
-                        <button onclick="updateQty(1)" class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
+                        <button @click="updateQty(1)" class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
                             <i data-lucide="plus" class="w-4 h-4"></i>
                         </button>
                     </div>
@@ -499,6 +627,8 @@ onMounted(() => {
                 </div>
             </div>
         </div>
+
+
 
     </main>
 

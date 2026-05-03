@@ -4,6 +4,7 @@ import { createApp, h, nextTick } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import PublicLayout from '@/Layouts/PublicLayout.vue'
 import * as lucide from 'lucide'
+import { createHead } from '@vueuse/head'
 
 createInertiaApp({
     resolve: name => {
@@ -18,7 +19,9 @@ createInertiaApp({
             render: () => h(App, props),
         })
 
+        const head = createHead()
         vueApp.use(plugin)
+        vueApp.use(head)
 
         vueApp.mount(el)
 
@@ -26,4 +29,5 @@ createInertiaApp({
             lucide.createIcons({ icons: lucide.icons })
         })
     },
+
 })

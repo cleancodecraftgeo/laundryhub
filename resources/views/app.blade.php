@@ -3,8 +3,16 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description">
+        <!-- Google ucun -->
+        <meta name="description" content="{{$settings->meta_description ?? ''}}">
+        <meta name="keywords" content="{{ $settings->meta_keywords ?? '' }}">
+        <meta name="robots" content="index, follow">
+        <!-- Google ucun -->
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <title inertia>{{$settings->meta_title ?? 'Default title'}}</title>
+
+        <!-- <title inertia>{{ config('app.name', 'Laravel') }}</title> -->
         <!-- Fonts -->
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <link rel="preconnect" href="https://fonts.bunny.net">

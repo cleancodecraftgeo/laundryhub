@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProductResource;
 use App\Http\Responses\PaginatedResponse;
+use App\Models\Category;
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+
 class ProductController extends Controller{
 
 protected $service;
@@ -32,7 +35,12 @@ public function index()
 
 
     return Inertia::render('Products/Index', [
-        'products' => new PaginatedResponse($paginator,200)
+        'products' => new PaginatedResponse($paginator,200),
+
+        'meta' => [
+            'title' => 'Products | Bioline',
+            'description' => 'All products page',
+    ],
     ]);
 }
 
@@ -87,8 +95,26 @@ public function index()
 //     ]);
 // }
 
-public function show($id){
-    return response()->json($this->service->getProductById($id));
+// public function show($id){
+//     return response()->json($this->service->getProductById($id));
+
+// }
+
+public function show($id)
+{
+    $product = Product::with(['category', 'images', 'translations'])
+    ->findOrFail($id);
+// dd($product->toArray());
+// dd($product->name, app()->getLocale());
+
+    return Inertia::render('Products/Show', [
+        'product' => (new ProductResource($product))->resolve(),
+
+        'meta' => [
+            'title' => $product->name . ' | Bioline',
+            'description' => $product->description,
+        ],
+    ]);
 }
 
 public function store(Request $request){

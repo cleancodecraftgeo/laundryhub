@@ -18,9 +18,12 @@ class CategoriesTable
                     ->label('ID')
                     ->searchable(),
                 TextColumn::make('name_en')
-                    ->searchable(),
-                TextColumn::make('name_ge')
-                    ->searchable(),
+                    ->label('Name')
+                    ->formatStateUsing(function ($record) {
+                        return app()->getLocale() === 'ge'
+                            ? $record->name_ge
+                            : $record->name_en;
+                    }),
                 TextColumn::make('slug')
                     ->searchable(),
                 TextColumn::make('created_at')

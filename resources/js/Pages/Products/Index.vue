@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useHelpers } from '../../helpers'
+import {Link, router, usePage} from '@inertiajs/vue3'
 
 const { truncate, price } = useHelpers()
 
@@ -10,6 +11,11 @@ const props = defineProps({
         default: () => { }
     },
 })
+
+const goToProduct = (id) => {
+  console.log('CLICK ID:', id)
+  router.visit(`/products/${id}`)
+}
 
 const emit = defineEmits(['page-change'])
 
@@ -282,51 +288,67 @@ const visiblePages = computed(() => {
                     </span>
                 </div>
 
-                <!-- Products Grid -->
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-                    <!-- Product Card 1 -->
-                    <div v-for="product of products.items"
-                        class="bg-white dark:bg-[#1e293b] rounded-2xl overflow-hidden card-hover transition-all duration-300 border border-gray-100 dark:border-transparent group">
-                        <div
-                            class="relative h-48 bg-gradient-to-br from-gray-100 dark:from-dark-700 to-gray-200 dark:to-dark-600 flex items-center justify-center">
-                            <div class="w-full h-full bg-gradient-to-br from-gray-400 to-gray-600 rounded-t-lg rounded-b-none shadow-lg"
-                                :style="{ backgroundImage: `url('${product.image}')` }"></div>
-                            <span
-                                class="absolute top-3 left-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full">In
-                                Stock</span>
+    <!-- PRODUCT CARD -->
+    <div
+      v-for="product in products?.items ?? []"
+      :key="product.id"
+      class="bg-white dark:bg-[#1e293b] rounded-2xl overflow-hidden border border-gray-100 dark:border-transparent group hover:shadow-lg transition"
+    >
 
-                        </div>
-                        <div class="p-4">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-xs text-gray-500">LG</span>
-                                <span class="text-gray-300">•</span>
-                                <span class="text-xs text-gray-500">Refrigerator</span>
-                            </div>
-                            <h3
-                                class="font-semibold text-gray-900 min-h-[40px] h-[50px] overflow-y-hidden dark:text-white mb-1 line-clamp-2">
-                                {{ truncate(product.title) }}
-                            </h3>
+      <!-- IMAGE -->
+      <div class="h-48 bg-gray-100 dark:bg-gray-800 relative">
+        <img
+          :src="product.image"
+          class="w-full h-full object-cover"
+        />
 
-                            <div class="flex items-end justify-between mb-3">
-                                <div>
+        <!-- STOCK BADGE -->
+        <span
+          class="absolute top-3 left-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full"
+        >
+          In Stock
+        </span>
+      </div>
 
-                                    <p class="text-xl font-bold text-teal-500">{{price(product.price)}}</p>
+      <!-- BODY -->
+      <div class="p-4">
 
-                                </div>
+        <!-- TITLE -->
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
+          {{ truncate(product.title) }}
+        </h3>
 
-                            </div>
-                            <div class="flex gap-2">
-                                <button
-                                    class="flex-1 bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg text-sm font-medium transition-colors">Detail</button>
+        <!-- PRICE (B2B SAFE) -->
+        <div class="mb-3">
 
-                            </div>
-                        </div>
-                    </div>
+          <p v-if="product.price !== null && product.price !== undefined"
+             class="text-xl font-bold text-teal-500"
+          >
+            {{ price(product.price) }}
+          </p>
 
+          <p v-else class="text-sm text-orange-500 font-semibold">
+            Contact for price
+          </p>
 
+        </div>
 
-                </div>
+        <!-- ACTION -->
+       <Link
+            :href="`/products/${product.id}`"
+            class="block text-center bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg text-sm font-medium"
+          >
+            Detail
+          </Link>
+
+      </div>
+
+    </div>
+
+  </div>
+
 
                 <!-- Pagination -->
 

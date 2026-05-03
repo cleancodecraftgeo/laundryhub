@@ -5,11 +5,11 @@ import Navbar from '../Components/Navbar.vue';
 </script>
 
 <template >
-   
+
    <div class="md:container md:mx-auto ">
  <Navbar/>
      <main >
-        <slot/>
+        <slot v-if="$slots.default" />
      </main>
 
     <!-- footer -->

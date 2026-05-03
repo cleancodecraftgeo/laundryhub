@@ -16,10 +16,11 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->foreignUlid('category_id')->constrained()->cascadeOnDelete();
 
-
             $table->string("image")->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->enum('status',ProductStatus::cases())->default(ProductStatus::ACTIVE->value);
+           
+
             $table->timestamps();
         });
     }

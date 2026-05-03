@@ -34,10 +34,15 @@ class Product extends Model
         'status',
         'image',
         'price',
-        'unit_id'
+        'unit_id',
+        'name_ge',
+        'name_en'
     ];
 
-     protected $appends = ['thumbnail'];
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+     protected $appends = ['thumbnail','name'];
 
     public function casts()
     {
@@ -51,7 +56,7 @@ class Product extends Model
 
 
 
-    public function Category()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
@@ -77,10 +82,30 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    protected function thumbnail():Attribute{
+    public function thumbnail():Attribute{
        return Attribute::get(function(){
                 $thumbnail = $this->images->where('is_thumb',true)->first();
                 return $thumbnail?->src ?? asset('storage/default_product.png');
        });
     }
+
+public function getNameAttribute()
+{
+    $locale = app()->getLocale();
+
+    $translation = $this->translations
+        ->where('locale', $locale)
+        ->first();
+
+    return $translation?->title
+        ?? $this->translations->first()?->title
+        ?? 'No name';
+}
+
+    //Seo
+public function seo()
+{
+    return $this->hasOne(ProductSeo::class);
+}
+
 }

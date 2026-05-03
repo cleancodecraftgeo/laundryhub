@@ -18,6 +18,12 @@ class Category extends Model
 
     protected $fillable = ['name_en','name_ge','slug','category_id'];
 
+//     public function getNameAttribute()
+// {
+//     return app()->getLocale() === 'ge'
+//         ? $this->name_ge
+//         : $this->name_en;
+// }
 
     public function attributes()
     {
@@ -40,4 +46,23 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function getBreadcrumbAttribute()
+{
+    $items = [];
+    $category = $this;
+
+    while ($category) {
+        array_unshift($items, [
+            'id' => $category->id,
+            'name' => app()->getLocale() === 'ge'
+                ? $category->name_ge
+                : $category->name_en,
+        ]);
+
+        $category = $category->parent;
+    }
+
+    return $items;
+}
 }

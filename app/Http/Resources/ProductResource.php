@@ -17,16 +17,25 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->resource->id,
-            'title' => $this->resource->title,
-            'description' => $this->resource->description,
-            'image' => $this->resource->thumbnail,
-            'images' => ImageResource::collection($this->whenLoaded('images')),
-            'date' =>[
-               'human' => Carbon::parse($this->resource->created_at)->diffForHumans(),
-                // getHumanDiffOptions(),
-               'iso'   => Carbon::parse($this->resource->created_at)->toIso8601String()
-            ]
-        ];
+    'id' => $this->resource->id,
+
+    'name' => $this->name,
+    'description' => $this->resource->description,
+    'price' => $this->resource->price,
+    'image' => $this->resource->thumbnail,
+    'images' => ImageResource::collection($this->whenLoaded('images')),
+    'category' => [
+        'id' => $this->category?->id,
+        'name' => app()->getLocale() === 'ge'
+        ? $this->category?->name_ge
+        : $this->category?->name_en,
+
+    'breadcrumb' => $this->category?->breadcrumb,
+],
+    'date' => [
+        'human' => Carbon::parse($this->resource->created_at)->diffForHumans(),
+        'iso' => Carbon::parse($this->resource->created_at)->toIso8601String()
+    ],
+];
     }
 }
