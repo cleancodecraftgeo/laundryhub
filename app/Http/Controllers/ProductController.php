@@ -44,70 +44,21 @@ public function index()
     ]);
 }
 
-                                                         //Index
-// public function index(){
 
-//    $paginator = $this->service->getAllProducts(20);
-
-//     //  $paginator->setCollection(
-//     //     collect(ProductResource::collection($paginator->getCollection())->collection)
-//     // );
-
-//  $paginator->setCollection(collection:ProductResource::collection(
-//     resource:$paginator->getCollection()
-//     )->collection);
-
-//         return Inertia::render('Pages/Products/Index',[
-//                 'items'=>$paginator
-//             ]);
-    //  return  new PaginatedResponse(
-    // paginator:$paginator,
-    // status:HttpFoundationResponse::HTTP_OK
-    // );
-
-        // return Inertia::render('Pages/Products/Index',[
-        //     'items'=>PaginatedResponse::collection($paginator),
-        // ]);
-
-
-
-    // return Inertia::render('Products/Index',[
-    //     'paginator'=>$updatedPaginator,
-    //     'status'=>HttpFoundationResponse::HTTP_OK,
-    // ]);
-
-//    return new PaginatedResponse(
-//     paginator:$paginator,
-//     status:HttpFoundationResponse::HTTP_OK
-//     );
-// if(request()->wantsJson()) {
-//     return new PaginatedResponse(paginator: $paginator, status: HttpFoundationResponse::HTTP_OK);
-// }
-//     return Inertia::render('Products/Index',[
-//         'products'=>$paginator->getCollection(),
-//         'pagination'=>[
-//                 'total'=>$paginator->total(),
-//                 'per_page'=>$paginator->perPage(),
-//                 'current_page'=>$paginator->currentPage(),
-//                 // 'last_page'->$paginator->lastPage(),
-//                 // 'from'=>$paginator->from(),
-//                         ],
-//     ]);
-// }
-
-// public function show($id){
-//     return response()->json($this->service->getProductById($id));
-
-// }
 
 public function show($locale = null, $id)
 {
-     $product = Product::with(['category', 'images', 'translations'])
-        ->findOrFail($id);
+    $product = Product::with([
+    'category',
+    'images',
+    'translations' => function ($query) use ($locale) {
+        $query->where('locale', $locale);
+    }
+])->findOrFail($id);
 
     return Inertia::render('Products/Show', [
         'product' => (new ProductResource($product))->resolve(),
-    
+
         'meta' => [
             'title' => $product->name . ' | Bioline',
             'description' => $product->description,

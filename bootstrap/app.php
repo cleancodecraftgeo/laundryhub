@@ -17,10 +17,13 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\ShareSettings::class,
             \App\Http\Middleware\SetLocale::class,
             \App\Http\Middleware\SetLocaleFromUrl::class,
+            \App\Http\Middleware\TestMiddleware::class,
         ]);
 
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (Exception $e) {
+            return response()->json(['error' => 'Xeta bash verdi'], 500);
+});
     })->create();

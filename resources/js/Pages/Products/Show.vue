@@ -31,7 +31,7 @@ function changeLang(lang) {
 }
 
 
-const locale = page.props.locale || 'en'
+const locale = computed(() => page.props.locale || 'en')
 
 const categoryName = computed(() => {
   return (
@@ -40,7 +40,7 @@ const categoryName = computed(() => {
     'Category'
   )
 })
-console.log("categoryName: ",categoryName.value ?? "yoxdur");
+
 
 useHead({
   title: meta.title,
@@ -85,23 +85,10 @@ const switchTab = (tabName) =>{
             activeBtn.classList.add('text-primary', 'border-primary');
         }
 
-// Images
-// const images = ref([
-//   'https://images.unsplash.com/photo-1626806775351-538068a21838?auto=format&fit=crop&q=80&w=1000',
-//   'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=300',
-//   'https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?auto=format&fit=crop&q=80&w=300',
-//   'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=300'
-// ]);
 
 const images = computed(() => {
     return product.value?.images?.data || []
 })
-//images^
-
-// const mainImage = ref(images.value[0]);
-// function changeImage(index) {
-//   mainImage.value = images.value[index];
-// }
 
 
 

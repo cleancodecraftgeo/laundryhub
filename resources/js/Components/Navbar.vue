@@ -103,12 +103,12 @@
             v-if="isLangOpen"
             class="absolute right-0 mt-2 w-24 bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg overflow-hidden"
         >
-            <a href="/set-locale/en"
+            <a @click.prevent="changeLang('en')" href="#"
                class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-slate-800">
                 EN
             </a>
 
-            <a href="/set-locale/ge"
+            <a @click.prevent="changeLang('ge')" href="#"
                class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-slate-800">
                 GE
             </a>
@@ -173,7 +173,8 @@
 <script setup>
 
 import { ref, onMounted,computed } from 'vue'
-import { Link, usePage } from '@inertiajs/vue3'
+import { Link, usePage, router } from '@inertiajs/vue3'
+
 import { Settings, User, LogOut } from 'lucide-vue-next';
 const page = usePage()
 
@@ -182,6 +183,21 @@ const isMobileMenuOpen = ref(false)
 const isLangOpen = ref(false)
 
 const locale = computed(() => page.props.locale || 'en')
+
+const changeLang = (lang) => {
+    const currentPath = window.location.pathname
+    const segments = currentPath.split('/').filter(Boolean)
+
+    if (['en', 'ge'].includes(segments[0])) {
+        segments[0] = lang
+    } else {
+        segments.unshift(lang)
+    }
+
+    const newPath = '/' + segments.join('/')
+
+    router.visit(newPath)
+}
 
 
 const currentLang = computed(() => page.props.locale)

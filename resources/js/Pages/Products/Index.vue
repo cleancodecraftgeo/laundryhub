@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useHelpers } from '../../helpers'
-import {Link, router, usePage} from '@inertiajs/vue3'
+import { Link, router, usePage } from '@inertiajs/vue3'
 
 const { truncate, price } = useHelpers()
 
@@ -13,8 +13,8 @@ const props = defineProps({
 })
 
 const goToProduct = (id) => {
-  console.log('CLICK ID:', id)
-  router.visit(`/products/${id}`)
+    console.log('CLICK ID:', id)
+    router.visit(`/products/${id}`)
 }
 
 const emit = defineEmits(['page-change'])
@@ -50,6 +50,8 @@ const visiblePages = computed(() => {
     return pages
 })
 
+const page = usePage();
+const currentLang = computed(() => page.props.locale || 'en')
 </script>
 
 <template>
@@ -288,66 +290,55 @@ const visiblePages = computed(() => {
                     </span>
                 </div>
 
-              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-    <!-- PRODUCT CARD -->
-    <div
-      v-for="product in products?.items ?? []"
-      :key="product.id"
-      class="bg-white dark:bg-[#1e293b] rounded-2xl overflow-hidden border border-gray-100 dark:border-transparent group hover:shadow-lg transition"
-    >
+                    <!-- PRODUCT CARD -->
+                    <div v-for="product in products?.items ?? []" :key="product.id"
+                        class="bg-white dark:bg-[#1e293b] rounded-2xl overflow-hidden border border-gray-100 dark:border-transparent group hover:shadow-lg transition">
 
-      <!-- IMAGE -->
-      <div class="h-48 bg-gray-100 dark:bg-gray-800 relative">
-        <img
-          :src="product.image"
-          class="w-full h-full object-cover"
-        />
+                        <!-- IMAGE -->
+                        <div class="h-48 bg-gray-100 dark:bg-gray-800 relative">
+                            <img :src="product.image" class="w-full h-full object-cover" />
 
-        <!-- STOCK BADGE -->
-        <span
-          class="absolute top-3 left-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full"
-        >
-          In Stock
-        </span>
-      </div>
+                            <!-- STOCK BADGE -->
+                            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                                In Stock
+                            </span>
+                        </div>
 
-      <!-- BODY -->
-      <div class="p-4">
+                        <!-- BODY -->
+                        <div class="p-4">
 
-        <!-- TITLE -->
-        <h3 class="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
-          {{ truncate(product.title) }}
-        </h3>
+                            <!-- TITLE -->
+                            <h3 class="font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                                {{ truncate(product.title) }}
+                            </h3>
 
-        <!-- PRICE (B2B SAFE) -->
-        <div class="mb-3">
+                            <!-- PRICE (B2B SAFE) -->
+                            <div class="mb-3">
 
-          <p v-if="product.price !== null && product.price !== undefined"
-             class="text-xl font-bold text-teal-500"
-          >
-            {{ price(product.price) }}
-          </p>
+                                <p v-if="product.price !== null && product.price !== undefined"
+                                    class="text-xl font-bold text-teal-500">
+                                    {{ price(product.price) }}
+                                </p>
 
-          <p v-else class="text-sm text-orange-500 font-semibold">
-            Contact for price
-          </p>
+                                <p v-else class="text-sm text-orange-500 font-semibold">
+                                    Contact for price
+                                </p>
 
-        </div>
+                            </div>
 
-        <!-- ACTION -->
-       <Link
-            :href="`/${currentLang}/products/${product.id}`"
-            class="block text-center bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg text-sm font-medium"
-          >
-            Detail
-          </Link>
+                            <!-- ACTION -->
+                            <Link :href="`/${currentLang.value}/products/${product.id}`"
+                                class="block text-center bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg text-sm font-medium">
+                                Detail
+                            </Link>
 
-      </div>
+                        </div>
 
-    </div>
+                    </div>
 
-  </div>
+                </div>
 
 
                 <!-- Pagination -->
